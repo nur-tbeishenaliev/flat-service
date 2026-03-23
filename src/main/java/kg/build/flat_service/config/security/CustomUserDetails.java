@@ -1,7 +1,7 @@
-package kg.build.flat_service.config;
+package kg.build.flat_service.config.security;
 
-import kg.build.flat_service.entity.Permission;
-import kg.build.flat_service.entity.User;
+import kg.build.flat_service.entity.account.Permission;
+import kg.build.flat_service.entity.account.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

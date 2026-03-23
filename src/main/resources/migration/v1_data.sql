@@ -15,5 +15,5 @@ values(2,'user','USER');
 INSERT INTO users
 (id, first_name, is_account_locked, last_name, "password", username, contact_info_id, role_id)
 VALUES(1, 'Tariel', true, 'Beishenaliev',
-       '$2a$10$h0UjPK68OEdztOduYSNBAeXuv/hWBUk/dmNAE3lhtbhVZ1oIOot5.', -- 170601Tirael
+       '$2a$10$h0UjPK68OEdztOduYSNBAeXuv/hWBUk/dmNAE3lhtbhVZ1oIOot5.',
        'tarik', NULL, 1);

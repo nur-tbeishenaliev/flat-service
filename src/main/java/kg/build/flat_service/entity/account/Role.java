@@ -1,4 +1,4 @@
-package kg.build.flat_service.entity;
+package kg.build.flat_service.entity.account;
 
 import jakarta.persistence.*;
 import kg.build.flat_service.enums.RoleCode;
@@ -27,7 +27,7 @@ public class Role {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "role_permissions",
             joinColumns = @JoinColumn(name = "role_id"),

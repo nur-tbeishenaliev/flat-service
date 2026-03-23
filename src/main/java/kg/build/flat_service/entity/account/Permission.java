@@ -1,4 +1,4 @@
-package kg.build.flat_service.entity;
+package kg.build.flat_service.entity.account;
 
 import jakarta.persistence.*;
 import kg.build.flat_service.enums.PermissionCode;

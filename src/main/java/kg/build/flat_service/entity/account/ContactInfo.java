@@ -1,11 +1,13 @@
-package kg.build.flat_service.entity;
+package kg.build.flat_service.entity.account;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Entity
 @Table(name = "contact_info")
 @Data
+@Accessors(chain = true)
 public class ContactInfo {
 
     @Id

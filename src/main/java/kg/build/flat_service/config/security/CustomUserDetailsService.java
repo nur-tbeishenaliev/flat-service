@@ -1,8 +1,7 @@
-package kg.build.flat_service.service;
+package kg.build.flat_service.config.security;
 
-import kg.build.flat_service.config.CustomUserDetails;
-import kg.build.flat_service.entity.User;
-import kg.build.flat_service.repository.UserRepository;
+import kg.build.flat_service.entity.account.User;
+import kg.build.flat_service.repository.account.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,7 +1,5 @@
-package kg.build.flat_service.config;
+package kg.build.flat_service.config.security;
 
-import jakarta.annotation.PostConstruct;
-import kg.build.flat_service.entity.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

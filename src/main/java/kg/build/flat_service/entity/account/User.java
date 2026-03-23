@@ -1,4 +1,4 @@
-package kg.build.flat_service.entity;
+package kg.build.flat_service.entity.account;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -40,6 +40,6 @@ public class User {
     private ContactInfo contactInfo;
 
     @Column(name = "is_account_locked")
-    private Boolean isAccountNonLocked; // true non locked | false locked
+    private Boolean isAccountNonLocked;// true non locked | false locked
 
 }
