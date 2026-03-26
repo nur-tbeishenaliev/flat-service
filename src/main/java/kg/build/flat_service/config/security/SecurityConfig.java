@@ -15,7 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final static String[] OPEN_URLS = {};
+    private final static String[] OPEN_URLS = {
+            "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/v3/api-docs.yaml" // swagger urls
+    };
 
 
     @Bean
