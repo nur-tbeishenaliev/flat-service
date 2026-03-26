@@ -1,5 +1,6 @@
 package kg.build.flat_service.config.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -13,7 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomAuthenticationFailureHandler failureHandler;
 
     private final static String[] OPEN_URLS = {
             "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/v3/api-docs.yaml" // swagger urls
@@ -33,10 +37,11 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginProcessingUrl("/login")
                         .successHandler((req, res, auth) -> res.setStatus(200))
-                        .failureHandler((req, res, ex) -> res.setStatus(401)))
+                        .failureHandler(failureHandler))
 
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+
         return http.build();
     }
 

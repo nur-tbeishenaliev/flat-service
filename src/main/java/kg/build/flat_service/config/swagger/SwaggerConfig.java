@@ -1,5 +1,6 @@
 package kg.build.flat_service.config.swagger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.context.annotation.Bean;
@@ -15,5 +16,10 @@ public class SwaggerConfig {
                         .title("FLAT Service API")
                         .description("Api for manage objects between employees")
                         .version("v1.0.0"));
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 }
