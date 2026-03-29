@@ -1,5 +1,6 @@
 package kg.build.flat_service.entity.dictionary;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import kg.build.flat_service.enums.DictionaryType;
 import lombok.Data;
@@ -19,7 +20,8 @@ public class Dictionary {
     generator = "dictionary_seq")
     @SequenceGenerator(
             name = "dictionary_seq",
-            sequenceName = "dictionary_seq"
+            sequenceName = "dictionary_seq",
+            allocationSize = 1
     )
     private Long id;
 
@@ -30,10 +32,11 @@ public class Dictionary {
     @Column(name = "type")
     private DictionaryType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
+    @JsonIgnore
     private Dictionary parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<Dictionary> children = new ArrayList<>();
 }

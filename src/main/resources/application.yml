@@ -19,4 +19,4 @@ spring:
 
   liquibase:
     enabled: true
-    change-log: classpath:migration/v1_data.sql
+    change-log: classpath:migration/db.changelog-master.yaml

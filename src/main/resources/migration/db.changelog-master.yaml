@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: migration/v1_data.sql
+  - include:
+      file: migration/v1_dictionary_regions_districts.sql
+  - include:
+      file: migration/v1_dictionary_series_state.sql
