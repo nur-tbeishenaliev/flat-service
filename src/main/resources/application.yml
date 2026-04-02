@@ -8,9 +8,9 @@ spring:
     name: flat-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -20,3 +20,11 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:migration/db.changelog-master.yaml
+
+minio:
+  url: ${MINIO_URL:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin}
+  bucket-name: ${MINIO_BUCKET:flat-files-bucket}
+  # Base path pattern: /images/{pathValue}/{objectId}/{uuid}.{extension}
+  collage-image-path: images
