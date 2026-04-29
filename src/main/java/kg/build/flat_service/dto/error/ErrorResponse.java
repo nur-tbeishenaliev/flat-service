@@ -1,4 +1,4 @@
-package kg.build.flat_service.controller.error;
+package kg.build.flat_service.dto.error;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

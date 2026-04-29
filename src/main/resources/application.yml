@@ -27,4 +27,4 @@ minio:
   secret-key: ${MINIO_SECRET_KEY:minioadmin}
   bucket-name: ${MINIO_BUCKET:flat-files-bucket}
   # Base path pattern: /images/{pathValue}/{objectId}/{uuid}.{extension}
-  collage-image-path: images
+  card-image-path: card-images

@@ -4,11 +4,13 @@ import kg.build.flat_service.dto.account.RoleDto;
 import kg.build.flat_service.service.account.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/roles")
+@RestController
+@RequestMapping("/roles")
 @RequiredArgsConstructor
 public class RoleController {
 

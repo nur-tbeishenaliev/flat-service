@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -18,5 +19,10 @@ public class DictionaryServiceImpl implements DictionaryService {
     @Override
     public List<Dictionary> getDictionaryByType(DictionaryType type){
         return dictionaryRepository.findByType(type);
+    }
+
+    @Override
+    public Set<Dictionary> getDictionariesByIds(List<Long> ids){
+        return dictionaryRepository.findByIdIn(ids);
     }
 }

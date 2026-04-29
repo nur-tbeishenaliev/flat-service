@@ -5,11 +5,13 @@ import kg.build.flat_service.enums.DictionaryType;
 import kg.build.flat_service.service.dictionary.DictionaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/dictionary")
+@RestController
+@RequestMapping("/dictionary")
 @RequiredArgsConstructor
 public class DictionaryController {
 

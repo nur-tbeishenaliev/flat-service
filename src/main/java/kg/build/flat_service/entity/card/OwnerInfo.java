@@ -1,9 +1,13 @@
 package kg.build.flat_service.entity.card;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Entity
 @Table(name = "owner_info")
+@Data
+@Accessors(chain = true)
 public class OwnerInfo {
 
     @Id

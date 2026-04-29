@@ -86,6 +86,15 @@ public class MinioServiceImpl implements MinioService {
         repository.delete(file);
     }
 
+    @Override
+    @Transactional
+    public void deleteFilesByIds(List<Long> ids){
+        for(Long id : ids){
+            deleteFile(id);
+        }
+    }
+
+    @Override
     @Transactional
     public List<Files> saveFiles(List<MultipartFile> files, String basePath, Long id) {
         List<Files> filesList = new ArrayList<>();

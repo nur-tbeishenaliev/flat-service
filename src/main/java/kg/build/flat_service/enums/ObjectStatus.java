@@ -1,5 +1,8 @@
 package kg.build.flat_service.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ObjectStatus {
     ACTIVE("Активный"),
     COMPLETED("Завершенный"),

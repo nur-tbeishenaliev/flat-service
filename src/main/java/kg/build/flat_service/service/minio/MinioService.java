@@ -15,5 +15,7 @@ public interface MinioService {
 
     void deleteFile(Long id);
 
+    void deleteFilesByIds(List<Long> ids);
+
     List<Files> saveFiles(List<MultipartFile> files, String basePath, Long id);
 }

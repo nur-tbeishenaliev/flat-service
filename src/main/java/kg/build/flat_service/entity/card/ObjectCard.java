@@ -1,16 +1,21 @@
 package kg.build.flat_service.entity.card;
 
 import jakarta.persistence.*;
-import kg.build.flat_service.entity.account.ContactInfo;
 import kg.build.flat_service.entity.account.User;
+import kg.build.flat_service.entity.dictionary.Dictionary;
+import kg.build.flat_service.entity.file.Files;
 import kg.build.flat_service.enums.CurrencyType;
 import kg.build.flat_service.enums.ObjectStatus;
 import kg.build.flat_service.enums.OfferType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "active_card")
@@ -28,10 +33,6 @@ public class ObjectCard {
     )
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "contact_info")
-    private ContactInfo contactInfo;
-
     @ManyToOne
     @JoinColumn(name = "created_by_id")
     private User createdBy;
@@ -39,8 +40,8 @@ public class ObjectCard {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
-    private Long price;
+    @Column(precision = 19, scale = 2)
+    private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "currency_type")
@@ -50,11 +51,8 @@ public class ObjectCard {
     @Column(name = "offer_type")
     private OfferType offerType;
 
-    @Column(name = "object_type")
-    private String objectType;
-
     @Column(name = "floor")
-    private String floor;
+    private Integer floor;
 
     @Column(name = "object_size")
     private String objectSize;
@@ -62,20 +60,26 @@ public class ObjectCard {
     @Column(name = "amount_of_rooms")
     private Integer amountOfRooms;
 
-    @Column(name = "condition")
-    private String condition;
-
     @Column(name = "utilities")
     private String utilities;
 
     @Column(name = "address")
     private String address;
 
-    @Column(name = "district")
-    private String district;
-
     @OneToMany
-    private List<CardImage> images;
+    @JoinTable(
+            name = "card_images",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "file_id")
+    )
+    private List<Files> images;
+
+    public List<Files> getImages() {
+        if(Objects.isNull(images)){
+            return new ArrayList<Files>();
+        }
+        return images;
+    }
 
     @OneToOne
     @JoinColumn(name = "owner_info_id")
@@ -90,4 +94,12 @@ public class ObjectCard {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ObjectStatus status;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "active_card_dictionaries",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "dictionary_id")
+    )
+    private Set<Dictionary> dictionaries;
 }
