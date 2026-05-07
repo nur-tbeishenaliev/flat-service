@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import kg.build.flat_service.entity.account.User;
 import kg.build.flat_service.enums.ObjectStatus;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "sell_request")
 @Data
+@Accessors(chain = true)
 public class SellRequest {
 
     @Id

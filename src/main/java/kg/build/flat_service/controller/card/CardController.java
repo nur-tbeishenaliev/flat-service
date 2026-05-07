@@ -48,15 +48,15 @@ public class CardController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCard(@PathVariable("id") Long cardId){
         cardService.deleteCard(cardId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Page<CardDto>> searchCard(
+    public Page<CardDto> searchCard(
             @RequestBody @Valid CardSearchRequest searchRequest){
-        return ResponseEntity.ok(cardService.searchCards(searchRequest));
+        return cardService.searchCards(searchRequest);
     }
 }

@@ -96,4 +96,20 @@ public class ObjectCardMapperImpl
                 .setStatus(ObjectStatus.valueOf(cardRequestDto.getStatus()))
                 .setDictionaries(dictionaries);
     }
+
+    @Override
+    public ObjectCard setUpdatedFileds(ObjectCard existCard, ObjectCard updatedCard){
+        existCard.setDescription(updatedCard.getDescription());
+        existCard.setPrice(updatedCard.getPrice());
+        existCard.setCurrencyType(updatedCard.getCurrencyType());
+        existCard.setOfferType(updatedCard.getOfferType());
+        existCard.setFloor(updatedCard.getFloor());
+        existCard.setObjectSize(updatedCard.getObjectSize());
+        existCard.setAmountOfRooms(updatedCard.getAmountOfRooms());
+        existCard.setAddress(updatedCard.getAddress());
+        existCard.setOwnerInfo(updatedCard.getOwnerInfo());
+        existCard.setStatus(updatedCard.getStatus());
+        existCard.setDictionaries(updatedCard.getDictionaries());
+        return existCard;
+    }
 }

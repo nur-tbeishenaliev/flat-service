@@ -60,8 +60,8 @@ public class CardServiceImpl implements CardService {
     public void updateCard(Long cardId, CardRequestDto dto) {
         ObjectCard objectCard = objectCardRepository.findById(cardId).orElseThrow();
         ObjectCard updatedData = objectCardMapper.toObjectCard(dto);
-        updatedData.setId(objectCard.getId());
-        objectCardRepository.save(updatedData);
+        objectCardMapper.setUpdatedFileds(objectCard,updatedData);
+        objectCardRepository.save(objectCard);
     }
 
     @Override

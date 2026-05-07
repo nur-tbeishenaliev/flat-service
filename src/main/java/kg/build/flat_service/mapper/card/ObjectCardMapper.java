@@ -11,4 +11,5 @@ public interface ObjectCardMapper {
 
     ObjectCard toObjectCard(CardRequestDto cardRequestDto);
 
+    ObjectCard setUpdatedFileds(ObjectCard existCard, ObjectCard updatedCard);
 }
