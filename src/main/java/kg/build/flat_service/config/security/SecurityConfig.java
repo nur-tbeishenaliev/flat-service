@@ -27,7 +27,8 @@ public class SecurityConfig {
     private final CustomAuthenticationFailureHandler failureHandler;
 
     private final static String[] OPEN_URLS = {
-            "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/v3/api-docs.yaml" // swagger urls
+            "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/v3/api-docs.yaml" ,// swagger urls
+            "/users/register","/roles"
     };
 
 

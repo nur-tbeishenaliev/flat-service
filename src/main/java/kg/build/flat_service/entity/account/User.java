@@ -35,7 +35,7 @@ public class User {
     @JoinColumn(name = "role_id",nullable = false)
     private Role role;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_info_id")
     private ContactInfo contactInfo;
 

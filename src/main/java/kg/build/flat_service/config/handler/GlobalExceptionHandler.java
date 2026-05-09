@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.validation.FieldError;
 import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
-
+import kg.build.flat_service.exception.validation.UsernameAlreadyExistsException;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -108,6 +109,19 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.UNAUTHORIZED, "Пользователь не существует", request);
     }
 
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleUsernameAlreadyExists(
+            UsernameAlreadyExistsException ex) {
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.CONFLICT.value())
+                .error("DUPLICATE_USERNAME")
+                .message(ex.getMessage())               // указываем поле
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
     // ── Spring MVC / HTTP ──────────────────────────────────────────────────
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

@@ -5,6 +5,7 @@ import kg.build.flat_service.dto.account.UserRequestDto;
 import kg.build.flat_service.dto.account.UserResponseDto;
 import kg.build.flat_service.entity.account.User;
 import kg.build.flat_service.mapper.account.UserMapper;
+import kg.build.flat_service.repository.account.ContactInfoRepository;
 import kg.build.flat_service.repository.account.UserRepository;
 import kg.build.flat_service.repository.account.specification.UserSpecification;
 import kg.build.flat_service.service.account.UserService;
@@ -15,19 +16,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ContactInfoRepository contactInfoRepository;
     private final UserMapper userMapper;
 
     @Override
     public Page<UserResponseDto> getUsers(UserFilter filter){
 
-        Sort sort = filter.getSortOrder().equalsIgnoreCase("desc")
-                ? Sort.by(filter.getSortBy()).descending()
-                : Sort.by(filter.getSortBy()).ascending();
+        Sort sort = Sort.by(
+                "desc".equals(filter.getSortOrder()) ? Sort.Direction.DESC : Sort.Direction.ASC,
+                filter.getSortBy()
+        );
 
         Pageable pageable = PageRequest.of(filter.getPage(), filter.getPageSize(), sort);
 
@@ -44,7 +49,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createOrUpdate(UserRequestDto user){
-        userRepository.save(userMapper.toEntity(user));
+        User userForSave = userMapper.toEntity(user);
+
+        // save sub entities if transient
+        if(Objects.nonNull(userForSave.getContactInfo()) &&
+        Objects.isNull(userForSave.getContactInfo().getId())){
+            contactInfoRepository.save(userForSave.getContactInfo());
+        }
+
+        // update if user exist
+        if(Objects.nonNull(userForSave.getId())){
+            User existUser = userRepository.findById(user.getId()).orElseThrow();
+            userMapper.copyUserInfo(existUser,userForSave);
+            userRepository.save(existUser);
+            return;
+        }
+        userRepository.save(userForSave);
     }
 
     @Override
@@ -67,9 +87,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto registerUser(UserRequestDto userRequestDto){
-        userRequestDto.setIsAccountNonLocked(false);
+    public UserResponseDto registerUser(UserRequestDto userDto){
+        User userForSave = userMapper.toEntity(userDto);
+        userForSave.setIsAccountNonLocked(false);
+
+        if(Objects.nonNull(userForSave.getContactInfo())){
+            contactInfoRepository.save(userForSave.getContactInfo());
+        }
+
         return userMapper.toResponseDto(
-                userRepository.save(userMapper.toEntity(userRequestDto)));
+                userRepository.save(userForSave));
     }
 }

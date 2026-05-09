@@ -19,6 +19,7 @@ public class ContactInfoMapperImpl implements ContactInfoMapper {
 
     @Override
     public ContactInfoDto toDto(ContactInfo entity) {
+        if(entity == null) return null;
         return new ContactInfoDto()
                 .setId(entity.getId())
                 .setPhoneNumber(entity.getPhoneNumber())

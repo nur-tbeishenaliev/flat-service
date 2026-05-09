@@ -1,5 +1,6 @@
 package kg.build.flat_service.controller.account;
 
+import jakarta.validation.Valid;
 import kg.build.flat_service.dto.account.UserFilter;
 import kg.build.flat_service.dto.account.UserRequestDto;
 import kg.build.flat_service.dto.account.UserResponseDto;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -19,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/search")
-    public Page<UserResponseDto> getUsers(@RequestBody UserFilter filter) {
+    public Page<UserResponseDto> getUsers(@RequestBody @Validated UserFilter filter) {
         return userService.getUsers(filter);
     }
 
@@ -49,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDto> registerUser(@RequestBody UserRequestDto userRequestDto){
+    public ResponseEntity<UserResponseDto> registerUser(@RequestBody @Valid UserRequestDto userRequestDto){
         return new ResponseEntity<>(userService.registerUser(userRequestDto),
                 HttpStatusCode.valueOf(200));
     }

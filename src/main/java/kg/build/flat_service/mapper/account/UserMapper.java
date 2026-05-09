@@ -9,4 +9,6 @@ public interface UserMapper {
     User toEntity(UserRequestDto userRequestDto);
 
     UserResponseDto toResponseDto(User user);
+
+    void copyUserInfo(User existUser, User newData);
 }

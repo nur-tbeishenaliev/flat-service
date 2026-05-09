@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -47,5 +48,28 @@ public class UserMapperImpl implements UserMapper {
                 .setRoleDescription(user.getRole().getDescription())
                 .setContactInfo(contactInfoMapper.toDto(user.getContactInfo()))
                 .setIsAccountNonLocked(user.getIsAccountNonLocked());
+    }
+
+    public void copyUserInfo(User existUser, User newData){
+        existUser.setUsername(Objects.nonNull(newData.getUsername()) ?
+                newData.getUsername() : existUser.getUsername());
+
+        existUser.setPassword(Objects.nonNull(newData.getPassword()) ?
+                newData.getPassword() : existUser.getPassword());
+
+        existUser.setFirstName(Objects.nonNull(newData.getFirstName()) ?
+                newData.getFirstName() : existUser.getFirstName());
+
+        existUser.setLastName(Objects.nonNull(newData.getLastName()) ?
+                newData.getLastName() : existUser.getLastName());
+
+        existUser.setRole(Objects.nonNull(newData.getRole()) ?
+                newData.getRole() : existUser.getRole());
+
+        existUser.setContactInfo(Objects.nonNull(newData.getContactInfo()) ?
+                newData.getContactInfo() : existUser.getContactInfo());
+
+        existUser.setIsAccountNonLocked(Objects.nonNull(newData.getIsAccountNonLocked()) ?
+                newData.getIsAccountNonLocked() : existUser.getIsAccountNonLocked());
     }
 }

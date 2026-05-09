@@ -88,7 +88,7 @@ public class CardServiceImpl implements CardService {
     public Page<CardDto> searchCards(CardSearchRequest request) {
         Sort sort = Sort.by(
                 "desc".equals(request.getSortDir()) ? Sort.Direction.DESC : Sort.Direction.ASC,
-                request.getSortDir()
+                request.getSortBy()
         );
 
         Pageable pageable = PageRequest.of(request.getPage(),
