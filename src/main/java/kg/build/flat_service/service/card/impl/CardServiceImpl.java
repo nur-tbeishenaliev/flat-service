@@ -5,10 +5,12 @@ import kg.build.flat_service.dto.card.CardDto;
 import kg.build.flat_service.dto.card.CardRequestDto;
 import kg.build.flat_service.dto.card.CardSearchRequest;
 import kg.build.flat_service.entity.card.ObjectCard;
+import kg.build.flat_service.entity.dictionary.Dictionary;
 import kg.build.flat_service.entity.file.Files;
 import kg.build.flat_service.mapper.card.ObjectCardMapper;
 import kg.build.flat_service.repository.card.ObjectCardRepository;
 import kg.build.flat_service.repository.card.specification.CardObjectSpecification;
+import kg.build.flat_service.repository.dictionary.DictionaryRepository;
 import kg.build.flat_service.service.card.CardService;
 import kg.build.flat_service.service.minio.MinioService;
 import kg.build.flat_service.util.SecurityUtils;
@@ -31,6 +33,7 @@ public class CardServiceImpl implements CardService {
     private final ObjectCardMapper objectCardMapper;
     private final MinioService minioService;
     private final SecurityUtils securityUtils;
+    private final DictionaryRepository dictionaryRepository;
 
     @Value("${minio.card-image-path}")
     private String cardImagePath;
@@ -94,6 +97,16 @@ public class CardServiceImpl implements CardService {
         Pageable pageable = PageRequest.of(request.getPage(),
                 request.getSize(),
                 sort);
+
+        // add child regions
+        List<Long> locationIds = request.getLocationIds();
+        locationIds.addAll(request.getRegionsIds());
+        for(Long id : locationIds){
+            locationIds.addAll(dictionaryRepository.findByParentId(id).stream()
+                    .map(Dictionary::getId)
+                    .toList());
+        }
+        locationIds.addAll(request.getDistrictIds());
 
         Specification<ObjectCard> spec = CardObjectSpecification.build(request);
 

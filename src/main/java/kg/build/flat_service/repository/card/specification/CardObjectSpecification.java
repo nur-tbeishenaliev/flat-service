@@ -22,9 +22,9 @@ public class CardObjectSpecification {
                 .and(byCurrencyType(req.getCurrencyType()))
                 .and(byStatus(req.getStatus()))
                 .and(priceBetween(req.getMinPrice(), req.getMaxPrice()))
-                .and(hasDictionaries(req.getDictionaryValues().values().stream()
-                        .map(DictionaryDto::getId)
-                        .toList()));
+                .and(hasDictionaries(req.getLocationIds()))
+                .and(hasDictionaries(req.getSeriesIds()))
+                .and(hasDictionaries(req.getStateIds()));
     }
 
     private static Specification<ObjectCard> hasKeyword(String keyword){
@@ -107,7 +107,7 @@ public class CardObjectSpecification {
                     })
                     .toList();
 
-            return cb.and(predicates.toArray(new Predicate[0]));
+            return cb.or(predicates.toArray(new Predicate[0]));
         };
     }
 }

@@ -10,4 +10,5 @@ import java.util.Set;
 public interface DictionaryRepository extends JpaRepository<Dictionary, Long> {
     List<Dictionary> findByType(DictionaryType type);
     Set<Dictionary> findByIdIn(List<Long> ids);
+    List<Dictionary> findByParentId(Long parentId);
 }
